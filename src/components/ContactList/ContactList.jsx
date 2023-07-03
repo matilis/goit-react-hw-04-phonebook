@@ -1,10 +1,10 @@
 import css from './ContactList.module.css';
 import PropTypes from 'prop-types';
 
-export const ContactList = props => {
-  const { contacts, onClick } = props;
-
-  const handleDelete = id => onClick(id.target.value);
+export const ContactList = ({ contacts, onClick }) => {
+  const deleteContact = id => {
+    onClick(id);
+  };
 
   return (
     <ul className={css.contacts}>
@@ -15,7 +15,7 @@ export const ContactList = props => {
             <p className={css.contacts__number}>{contact.number}</p>
             <button
               type="button"
-              onClick={handleDelete}
+              onClick={() => deleteContact(contact.id)}
               className={css.contacts__button}
             >
               Delete
