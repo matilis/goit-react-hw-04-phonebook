@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import css from './ContactForm.module.css';
 import PropTypes from 'prop-types';
 
-export const ContactForm = ({ onSubmit }) => {
+export const ContactForm = addContact => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const handleChange = event => {
-    const { name, value } = event.target;
+  const handleChange = e => {
+    const { name, value } = e.target;
+
     switch (name) {
       case 'name':
         setName(value);
@@ -20,9 +21,13 @@ export const ContactForm = ({ onSubmit }) => {
     }
   };
 
-  const handleSubmit = event => {
-    event.preventDefault();
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    const { onSubmit } = addContact;
+
     onSubmit(name, number);
+
     setName('');
     setNumber('');
   };

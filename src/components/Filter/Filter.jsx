@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 export const Filter = filter => {
   const { onChange } = filter;
 
-  const filterContacts = event => onChange(event.target.value);
+  const handleInputChange = e => onChange(e.target.value);
+
   return (
     <div className={css.filter}>
       <h3>Find contact by name</h3>
       <input
         className={css.filter__input}
-        onChange={filterContacts}
+        onChange={handleInputChange}
         placeholder="Contact name"
       />
     </div>

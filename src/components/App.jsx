@@ -5,36 +5,33 @@ import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
 
 export const App = () => {
-  const [contacts, setContacts] = useState(() => {
-    const storedContacts = localStorage.getItem('Contacts_Local_Storage');
-    return storedContacts ? JSON.parse(storedContacts) : [];
-  });
-  const [filter, setFilter] = useState('');
+  const [contacts, setContacts] = useState(
+    () => JSON.parse(localStorage.getItem('state')) || []
+  );
+  const [filter, setfilter] = useState('');
 
   useEffect(() => {
-    localStorage.setItem('Contacts_Local_Storage', JSON.stringify(contacts));
+    localStorage.setItem('state', JSON.stringify(contacts));
   }, [contacts]);
 
   const addNewName = (name, number) => {
     const contactNames = contacts.map(contact => contact.name);
 
-    if (contactNames.includes(name)) {
-      alert(`${name} is already in contacts`);
-      return;
-    }
+    if (contactNames.includes(name))
+      return alert(`${name} is alredy in contacts`);
 
     setContacts([...contacts, { id: nanoid(), name, number }]);
   };
 
   const showFilteredContacts = () =>
-    contacts.filter(showContact =>
-      showContact.name.toLowerCase().includes(filter.toLowerCase())
+    contacts.filter(con =>
+      con.name.toLowerCase().includes(filter.toLowerCase())
     );
 
   const deleteContact = id =>
     setContacts(contacts.filter(contact => contact.id !== id));
 
-  const handleFilterChange = newValue => setFilter(newValue);
+  const handleFilterChange = newValue => setfilter(newValue);
 
   return (
     <div>
