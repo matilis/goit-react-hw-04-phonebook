@@ -5,14 +5,16 @@ import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
 
 export const App = () => {
-  const [contacts, setContacts] = useState(
-    () => JSON.parse(localStorage.getItem('Contacts_Local_Storage')) || []
-  );
+  const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    localStorage.setItem('Contacts_Local_Storage', JSON.stringify(contacts));
-  }, [contacts]);
+    const dataFromLS = localStorage.getItem('Contacts_Local_Storage');
+
+    if (dataFromLS) {
+      setContacts(JSON.parse(dataFromLS));
+    }
+  }, []);
 
   const addNewName = (name, number) => {
     const contactNames = contacts.map(contact => contact.name);
