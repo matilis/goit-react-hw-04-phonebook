@@ -9,7 +9,7 @@ export const App = () => {
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    const dataFromLS = localStorage.getItem('Contacts_Local_Storage');
+    const dataFromLS = localStorage.getItem('Contacts_LS');
 
     if (dataFromLS) {
       setContacts(JSON.parse(dataFromLS));
