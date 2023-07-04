@@ -5,22 +5,37 @@ import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
 
 export const App = () => {
-  const [isMounted, setIsMounted] = useState(false);
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    setIsMounted(true);
-    const savedContacts = localStorage.getItem('Contacts_LS');
-    const parsedContacts = JSON.parse(savedContacts) || [];
-    setContacts(parsedContacts);
+    const savedContacts = JSON.parse(localStorage.getItem('Contacts_LS')) || [];
+    setContacts(savedContacts);
   }, []);
 
   useEffect(() => {
-    if (isMounted) {
+    if (contacts.length > 0) {
       localStorage.setItem('Contacts_LS', JSON.stringify(contacts));
     }
-  });
+  }, [contacts]);
+
+  // export const App = () => {
+  //   const [isMounted, setIsMounted] = useState(false);
+  //   const [contacts, setContacts] = useState([]);
+  //   const [filter, setFilter] = useState('');
+
+  //   useEffect(() => {
+  //     setIsMounted(true);
+  //     const savedContacts = localStorage.getItem('Contacts_LS');
+  //     const parsedContacts = JSON.parse(savedContacts) || [];
+  //     setContacts(parsedContacts);
+  //   }, []);
+
+  //   useEffect(() => {
+  //     if (isMounted) {
+  //       localStorage.setItem('Contacts_LS', JSON.stringify(contacts));
+  //     }
+  //   });
 
   const addNewName = (name, number) => {
     const contactNames = contacts.map(contact => contact.name);
