@@ -11,16 +11,16 @@ export const App = () => {
 
   useEffect(() => {
     setIsMounted(true);
-    const savedContacts = localStorage.getItem('contacts');
+    const savedContacts = localStorage.getItem('Contacts_LS');
     const parsedContacts = JSON.parse(savedContacts) || [];
     setContacts(parsedContacts);
   }, []);
 
   useEffect(() => {
     if (isMounted) {
-      localStorage.setItem('contacts', JSON.stringify(contacts));
+      localStorage.setItem('Contacts_LS', JSON.stringify(contacts));
     }
-  }, [contacts]);
+  });
 
   const addNewName = (name, number) => {
     const contactNames = contacts.map(contact => contact.name);
